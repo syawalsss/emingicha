@@ -23,7 +23,7 @@
     animated.forEach((el) => observer.observe(el));
   } else animated.forEach((el) => el.classList.add("show"));
   // 14 November 2026, 10:00 WITA = 02:00 UTC.
-  const eventTime = new Date("2026-11-14T02:00:00Z").getTime();
+  const eventTime = new Date("2026-11-15T02:00:00Z").getTime();
   const updateCountdown = () => {
     const delta = Math.max(0, eventTime - Date.now());
     const values = [
