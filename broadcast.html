@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generator Broadcast WA - Umma & Mufliha</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f4f7f6;
+      color: #333;
+      padding: 20px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    h2 { color: #151a3b; text-align: center; }
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+    textarea {
+      width: 100%;
+      height: 150px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-family: inherit;
+      resize: vertical;
+      box-sizing: border-box;
+    }
+    .guest-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .guest-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #fff;
+      padding: 12px 15px;
+      border-radius: 8px;
+      border-left: 4px solid #dca43b;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    .guest-name { font-weight: 600; }
+    .btn-send {
+      background-color: #25D366;
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 0.9rem;
+      text-align: center;
+    }
+    .btn-send.manual {
+      background-color: #f39c12;
+    }
+    .info { font-size: 0.85rem; color: #666; margin-bottom: 15px; }
+    .input-group {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .input-group input {
+      flex: 1;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    .btn-add {
+      background-color: #151a3b;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    @media (max-width: 600px) {
+      .input-group { flex-direction: column; }
+      .guest-item { flex-direction: column; align-items: flex-start; gap: 10px; }
+      .btn-send { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Dashboard Broadcast WA</h2>
+  
+  <div class="card">
+    <h3>Template Pesan</h3>
+    <p class="info">Gunakan <strong>{nama}</strong> untuk nama tamu dan <strong>{link}</strong> untuk link undangan.</p>
+    <textarea id="templateMessage">Assalamualaikum Warahmatullahi Wabarakatuh.
+
+Bismillahirahmanirrahim.
+Yth. Bapak/Ibu/Saudara/i:
+*{nama}*
+
+Tanpa mengurangi rasa hormat, perkenankan kami mengundang Bapak/Ibu/Saudara/i untuk hadir dan memberikan doa restu pada acara pernikahan kami.
+
+Detail acara dapat dilihat melalui tautan undangan berikut:
+{link}
+
+Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir.
+
+Wassalamualaikum Warahmatullahi Wabarakatuh.
+Hormat kami,
+*Umma & Mufliha*</textarea>
+  </div>
+
+  <div class="card" style="border-left: 4px solid #25D366;">
+    <h3>Tambah Tamu Baru</h3>
+    <p class="info">Tambahkan nama tamu yang terlewat di sini.</p>
+    <div class="input-group">
+      <input type="text" id="newGuestName" placeholder="Nama Tamu Baru...">
+      <input type="text" id="newGuestWa" placeholder="Nomor WA (Opsional, cth: 62812...)">
+    </div>
+    <button class="btn-add" onclick="addGuest()">+ Tambahkan ke Daftar</button>
+  </div>
+
+  <div class="card">
+    <h3>Daftar Tamu Undangan (<span id="totalTamu">0</span>)</h3>
+    <div class="guest-list" id="guestList"></div>
+  </div>
+
+  <script>
+    // 1. Data bawaan (67 Tamu)
+    const tamuDefault = [
+      { nama: "Kakanda Asrul", wa: "" }, { nama: "Kakanda Amirullah", wa: "" },
+      { nama: "Kakanda Arman Malik", wa: "" }, { nama: "Kakanda Nurdianyah", wa: "" },
+      { nama: "Kakanda Ahmad Fahri Ramadhan", wa: "" }, { nama: "Kakanda Maghfiratush Sholihah.", wa: "" },
+      { nama: "Kakanda Yusuf Ariadi Arni & Ny", wa: "" }, { nama: "Kakanda Syawal Saputra", wa: "" },
+      { nama: "Kakanda Muh. Ridwan", wa: "" }, { nama: "Kakanda Muh Afdal", wa: "" },
+      { nama: "Kakanda Fadrul Ali. B", wa: "" }, { nama: "Kakanda Kasri Kasim", wa: "" },
+      { nama: "Kakanda Ahmad Firdaus, M.", wa: "" }, { nama: "Kakanda Muabbir S.T", wa: "" },
+      { nama: "Kakanda Muammar Ali", wa: "" }, { nama: "Kakanda Muhammad Usman & Ny", wa: "" },
+      { nama: "Kakanda Husnul Fahmi, S.T.", wa: "" }, { nama: "Muhammad Irsan Anwar", wa: "" },
+      { nama: "Nurafika", wa: "" }, { nama: "Hidayat Nur Wahid", wa: "" },
+      { nama: "Muh. Akbar", wa: "" }, { nama: "Mar'atuth Thohirah", wa: "" },
+      { nama: "Ibnu Hilal", wa: "" }, { nama: "Khaerul Azimi Sakir", wa: "" },
+      { nama: "Anugrah", wa: "" }, { nama: "Mirnawati Faidatussholeha", wa: "" },
+      { nama: "Ahmad Baqir Hamzah", wa: "" }, { nama: "Muh.Rifqi Al Fauzi", wa: "" },
+      { nama: "Sri Mardani", wa: "" }, { nama: "Muhammad Taufiqurahman", wa: "" },
+      { nama: "Muh. Rizki Aqil", wa: "" }, { nama: "Muhammad Irvan", wa: "" },
+      { nama: "Putri Amanda", wa: "" }, { nama: "Ainun Magfirah", wa: "" },
+      { nama: "Azzahrah Yusriyah Nashiroh", wa: "" }, { nama: "Ahmad Rezky Hidayatullah", wa: "" },
+      { nama: "Achmad Andriany S.Pd., DMM", wa: "" }, { nama: "Saifullah Bonto S.I.P., M.I.Pol", wa: "" },
+      { nama: "Muh. Husain Sukri S.M & Ny", wa: "" }, { nama: "Muh. Hasan Sukri. S.Hut & Ny", wa: "" },
+      { nama: "Nur Alam Riani, SKM.", wa: "" }, { nama: "Rahman & Ny", wa: "" },
+      { nama: "Fitriani S.P.", wa: "" }, { nama: "Dinda Ramadhani", wa: "" },
+      { nama: "Ilham Taufik & Ny", wa: "" }, { nama: "Nurkhalisah Putri S.P.", wa: "" },
+      { nama: "Muh Fauzan Khaeri Jamil", wa: "" }, { nama: "Muhammad Hamdika Hatta", wa: "" },
+      { nama: "Husnul Khatimah Kasim", wa: "" }, { nama: "Dewi Reski Maemuna", wa: "" },
+      { nama: "Aisyah A.", wa: "" }, { nama: "Aisyah H.S", wa: "" },
+      { nama: "Sulfa", wa: "" }, { nama: "Muh Takbir S.M.& Ny", wa: "" },
+      { nama: "Amirullah", wa: "" }, { nama: "Musdalifa", wa: "" },
+      { nama: "Herawati", wa: "" }, { nama: "Meldayanti", wa: "" },
+      { nama: "Nurqadri Ramadhani", wa: "" }, { nama: "Alwi Fahmi", wa: "" },
+      { nama: "Ahmad Yusran", wa: "" }, { nama: "Irwansya S.Ag.,M.Ag", wa: "" },
+      { nama: "Muh. Ardanil", wa: "" }, { nama: "Awaluddin Adam", wa: "" },
+      { nama: "Syariani Syam", wa: "" }, { nama: "Muhammad Syawal", wa: "" },
+      { nama: "PD IPM Barru", wa: "" }
+    ];
+
+    // 2. Ambil data tamu tambahan dari Local Storage (jika ada)
+    let tamuTambahan = JSON.parse(localStorage.getItem("tamuTambahan")) || [];
+    
+    // 3. Gabungkan data bawaan dan data tambahan
+    let tamu = [...tamuDefault, ...tamuTambahan];
+
+    const baseUrl = "https://syawal07.github.io/wedding-ummamufliha/?to=";
+    const guestListContainer = document.getElementById("guestList");
+
+    function renderGuests() {
+      guestListContainer.innerHTML = "";
+      const template = document.getElementById("templateMessage").value;
+
+      tamu.forEach((guest, index) => {
+        const encodedNameUrl = encodeURIComponent(guest.nama);
+        const linkUndangan = baseUrl + encodedNameUrl;
+
+        let pesanText = template.replace(/{nama}/g, guest.nama).replace(/{link}/g, linkUndangan);
+        const encodedMessage = encodeURIComponent(pesanText);
+        
+        let waLink = guest.wa && guest.wa.trim() !== "" 
+          ? `https://wa.me/${guest.wa}?text=${encodedMessage}` 
+          : `https://wa.me/?text=${encodedMessage}`;
+
+        const div = document.createElement("div");
+        div.className = "guest-item";
+        
+        // Tambahkan tombol "Hapus" hanya untuk tamu tambahan (bukan default)
+        let deleteBtn = index >= tamuDefault.length 
+          ? `<button onclick="deleteGuest(${index})" style="margin-left:10px; background:transparent; border:none; color:red; cursor:pointer; font-weight:bold;">X</button>` 
+          : '';
+
+        div.innerHTML = `
+          <div style="display: flex; flex-direction: column;">
+            <span class="guest-name">${guest.nama} ${deleteBtn}</span>
+            <span style="font-size: 0.75rem; color: #888;">${guest.wa ? '+' + guest.wa : 'Pilih kontak manual di WA'}</span>
+          </div>
+          <a href="${waLink}" target="_blank" class="btn-send ${!guest.wa ? 'manual' : ''}">
+            ${guest.wa ? 'Kirim Langsung' : 'Kirim WA'}
+          </a>
+        `;
+        guestListContainer.appendChild(div);
+      });
+      document.getElementById("totalTamu").innerText = tamu.length;
+    }
+
+    function addGuest() {
+      const nameInput = document.getElementById("newGuestName");
+      const waInput = document.getElementById("newGuestWa");
+      
+      const newName = nameInput.value.trim();
+      const newWa = waInput.value.trim();
+
+      if (newName === "") {
+        alert("Nama tamu tidak boleh kosong!");
+        return;
+      }
+
+      // Tambahkan ke array tamu tambahan
+      tamuTambahan.push({ nama: newName, wa: newWa });
+      
+      // Simpan ke Local Storage
+      localStorage.setItem("tamuTambahan", JSON.stringify(tamuTambahan));
+      
+      // Perbarui array utama
+      tamu = [...tamuDefault, ...tamuTambahan];
+
+      nameInput.value = "";
+      waInput.value = "";
+      
+      renderGuests();
+    }
+
+    // Fitur baru: Menghapus tamu tambahan
+    function deleteGuest(index) {
+      if(confirm("Hapus tamu ini dari daftar?")) {
+        const indexTambahan = index - tamuDefault.length;
+        tamuTambahan.splice(indexTambahan, 1);
+        localStorage.setItem("tamuTambahan", JSON.stringify(tamuTambahan));
+        tamu = [...tamuDefault, ...tamuTambahan];
+        renderGuests();
+      }
+    }
+
+    renderGuests();
+    document.getElementById("templateMessage").addEventListener("input", renderGuests);
+  </script>
+
+</body>
+</html>

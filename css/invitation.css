@@ -1,0 +1,761 @@
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap');
+:root {
+  --wine:#490d19;
+  --wine2:#6b1a2c;
+  --dark:#25070d;
+  --cream:#fff1e7;
+  --paper:#f8e9df;
+  --gold:#d4ad70;
+  --ink:#4d1923;
+}
+
+* {
+  box-sizing:border-box;
+}
+
+html {
+  scroll-behavior:smooth;
+}
+
+body {
+  margin:0;
+  background:#18070b;
+  color:var(--cream);
+  font-family:Poppins,sans-serif;
+  overflow-x:hidden;
+}
+
+button,input,textarea {
+  font:inherit;
+}
+
+button,a {
+  -webkit-tap-highlight-color:transparent;
+}
+
+img {
+  max-width:100%;
+}
+
+.container {
+  max-width:480px;
+  width:100%;
+  margin:auto;
+  overflow:hidden;
+  background:linear-gradient(180deg,#490d19,#641a2b 33%,#420c18 70%,#29070e);
+  box-shadow:0 0 50px #0008;
+  position:relative;
+  isolation:isolate;
+}
+
+.container>section,.closing-wrapper {
+  position:relative;
+  isolation:isolate;
+}
+
+/* Motif dekoratif terinspirasi budaya Bugis (bukan motif historis spesifik) */
+.traditional-band {
+  height:66px;
+  position:absolute;
+  left:0;
+  right:0;
+  top:0;
+  z-index:5;
+  background:repeating-linear-gradient(90deg,transparent 0 26px,#e4bf82 26px 29px,transparent 29px 53px),linear-gradient(#52101c,#681c2b);
+  border-top:7px solid #b98d4e;
+  border-bottom:3px solid #d4ad70;
+  box-shadow:0 4px 12px #26040a55;
+}
+
+.traditional-band:after {
+  content:"";
+  position:absolute;
+  inset:11px 0 10px;
+  background:repeating-linear-gradient(90deg,transparent 0 19px,#d8ac6a 19px 27px,transparent 27px 39px);
+  clip-path:polygon(0 0,100% 0,100% 65%,97% 100%,94% 65%,91% 100%,88% 65%,85% 100%,82% 65%,79% 100%,76% 65%,73% 100%,70% 65%,67% 100%,64% 65%,61% 100%,58% 65%,55% 100%,52% 65%,49% 100%,46% 65%,43% 100%,40% 65%,37% 100%,34% 65%,31% 100%,28% 65%,25% 100%,22% 65%,19% 100%,16% 65%,13% 100%,10% 65%,7% 100%,4% 65%,1% 100%);
+  opacity:.8;
+}
+
+.opening-scene {
+  min-height:100svh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  background:linear-gradient(#ffeedc 10%,#f7dcc7 70%,#d9aa8f);
+  color:var(--ink);
+  overflow:hidden;
+}
+
+.opening-scene:before {
+  content:"";
+  inset:0;
+  position:absolute;
+  background:linear-gradient(transparent 0%,#fff3e999 60%,#5e152b33 100%),url('../assets/Romantic Floral Archway Border.png') center/100% 100% no-repeat;
+  opacity:.44;
+  z-index:0;
+}
+
+.mountain-scene {
+  position:absolute;
+  inset:8% 0 15%;
+  overflow:hidden;
+  z-index:0;
+  opacity:.55;
+}
+
+.mountain {
+  position:absolute;
+  left:-20%;
+  width:140%;
+  height:63%;
+  bottom:6%;
+  clip-path:polygon(0 100%,12% 72%,22% 81%,37% 35%,45% 58%,58% 13%,70% 56%,83% 28%,100% 100%);
+  background:linear-gradient(145deg,#d7a7a2,#865061);
+}
+
+.mountain-back {
+  transform:translateY(-14%) scale(1.12);
+  filter:blur(2px);
+  opacity:.38;
+}
+
+.mountain-front {
+  background:linear-gradient(145deg,#b26b7a,#6d2a3e);
+  opacity:.55;
+  transform:translateY(15%);
+}
+
+.opening-content {
+  position:relative;
+  z-index:2;
+  margin:-15vh 20px 0;
+  padding:22px 12px;
+  background:#fff1e7c9;
+  border-radius:48% 48% 12px 12px/17% 17% 12px 12px;
+  min-width:70%;
+  box-shadow:0 2px 25px #fff6;
+}
+
+.scene-label {
+  font:12px 'Playfair Display',serif;
+  letter-spacing:2px;
+  text-transform:uppercase;
+}
+
+.opening-content h1 {
+  font:clamp(42px,11vw,65px) 'Great Vibes',cursive;
+  margin:8px 0 15px;
+  color:#591428;
+}
+
+.opening-content h1 span {
+  color:#a77742;
+}
+
+.scene-date {
+  font:600 11px Poppins,sans-serif;
+  letter-spacing:1.4px;
+}
+
+.scene-scroll {
+  display:inline-block;
+  color:var(--wine);
+  font-size:35px;
+  text-decoration:none;
+  animation:bob 2s infinite;
+}
+
+@keyframes bob {
+  50% {
+    transform:translateY(7px);
+  }
+
+}
+
+.scene-house {
+  position:absolute;
+  bottom:-3%;
+  width:93%;
+  max-height:32%;
+  object-fit:contain;
+  object-position:bottom;
+  z-index:2;
+  filter:drop-shadow(0 8px 8px #3c0d173b);
+}
+
+/* All sections share a softly floral editorial composition */
+.main-invitation,.events-section,.love-story-section,.rsvp-section,.gift-section,.closing-wrapper {
+  padding:92px 24px 64px;
+  text-align:center;
+}
+
+.main-invitation:before,.events-section:before,.love-story-section:before,.rsvp-section:before,.gift-section:before,.closing-wrapper:before {
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  background:linear-gradient(180deg,#4a0d1aeb,#59172ae9),url('../assets/Romantic Floral Archway Border.png') center/cover;
+}
+
+.main-invitation:after,.events-section:after,.love-story-section:after,.gift-section:after {
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  top:0;
+  height:28px;
+  background:repeating-linear-gradient(90deg,#c69b5c 0 5px,#711b2d 5px 16px,#e8c995 16px 19px,#711b2d 19px 28px);
+  border-top:2px solid #e2b77b;
+  border-bottom:2px solid #e2b77b;
+  opacity:.92;
+}
+
+.cultural-badge {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  margin-bottom:22px;
+}
+
+.badge-text {
+  font:500 13px 'Playfair Display',serif;
+  letter-spacing:2px;
+  color:var(--gold);
+}
+
+.diamond,.diamond-large {
+  height:7px;
+  width:7px;
+  transform:rotate(45deg);
+  background:var(--gold);
+}
+
+.greeting {
+  font:500 15px 'Playfair Display',serif;
+  color:var(--gold);
+  line-height:1.7;
+}
+
+.invitation-text {
+  font-size:13px;
+  line-height:1.9;
+  color:#f9e7db;
+  margin:20px auto 28px;
+  max-width:370px;
+}
+
+.profile-cards {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:18px;
+}
+
+/* KARTU PENGANTIN */
+.profile-card {
+  width: 100%;
+  max-width: 365px;
+  padding: 18px 14px 32px;
+
+  background: linear-gradient(
+    160deg,
+    #6c2335,
+    #380a16
+  );
+
+  border: 1px solid #ceaa76;
+  border-radius:
+    150px 150px 18px 18px /
+    100px 100px 18px 18px;
+
+  box-shadow: 0 10px 24px #1c05124d;
+  position: relative;
+  overflow: hidden;
+}
+
+.profile-card:before {
+  content:"";
+  position:absolute;
+  inset:7px;
+  border:1px solid #c39b6e77;
+  border-radius:inherit;
+  pointer-events:none;
+}
+
+/* BINGKAI FOTO PENGANTIN */
+.photo-wrapper {
+  width: 92%;
+  height: 355px;
+  margin: 0 auto 20px;
+
+  position: relative;
+  overflow: hidden;
+
+  border: 2px solid var(--gold);
+  border-radius: 160px 160px 8px 8px;
+
+  background-color: #761b30;
+}
+
+/* FOTO MEMENUHI BINGKAI */
+.photo-wrapper img {
+  display: block;
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+  object-position: center 25%;
+}
+
+.name,.closing-names .gold-text {
+  font:clamp(39px,10vw,53px) 'Great Vibes',cursive;
+  color:var(--gold);
+  margin:8px 0;
+}
+
+.nickname {
+  font:italic 15px 'Playfair Display',serif;
+  margin:0;
+  color:#fff0e0;
+}
+
+.desc {
+  font:13px/1.85 Poppins,sans-serif;
+  color:#f8e4d9;
+}
+
+.instagram-tag {
+  display:inline-block;
+  padding:7px 16px;
+  border-radius:30px;
+  border:1px solid #cba16b;
+  color:#f1c98c;
+  font-size:12px;
+}
+
+.and-symbol {
+  font:52px 'Great Vibes',cursive;
+  color:var(--gold);
+}
+
+.divider-container {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:14px;
+  margin:35px auto 20px;
+}
+
+.gold-line {
+  width:75px;
+  height:1px;
+  background:var(--gold);
+}
+
+.quote {
+  font:italic 14px/1.9 'Playfair Display',serif;
+  color:#fff0e6;
+}
+
+.surah {
+  color:var(--gold);
+  font:600 12px Poppins,sans-serif;
+}
+
+.events-section {
+  display:flex;
+  flex-direction:column;
+  align-items:stretch;
+  gap:24px;
+  background:#4d111f;
+}
+
+.section-card {
+  position:relative;
+  background:linear-gradient(155deg,#fff6ed,#f5dfd3);
+  color:var(--ink);
+  border:1px solid var(--gold);
+  border-radius:18px;
+  padding:35px 22px;
+  box-shadow:0 11px 25px #21040b42;
+}
+
+.events-section .section-card:nth-child(2),.events-section .section-card:nth-child(3) {
+  border-radius:155px 155px 20px 20px/95px 95px 20px 20px;
+  padding-top:58px;
+}
+
+.heading,.rsvp-heading {
+  font:600 24px 'Playfair Display',serif;
+  color:var(--wine);
+  margin:0 0 17px;
+}
+
+.events-section .section-card:first-child .heading {
+  font:43px 'Great Vibes',cursive;
+}
+
+.event-icon {
+  font-size:28px;
+  margin-bottom:7px;
+}
+
+.event-detail {
+  font:13px/1.95 Poppins,sans-serif;
+  color:#552431;
+}
+
+.countdown {
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:7px;
+}
+
+.countdown div {
+  border-radius:9px;
+  background:var(--wine);
+  padding:12px 2px;
+  color:#fff3df;
+}
+
+.countdown span {
+  display:block;
+  font:600 clamp(18px,5vw,25px) 'Playfair Display',serif;
+}
+
+.countdown small {
+  font-size:10px;
+}
+
+.map {
+  width:100%;
+  height:225px;
+  border:1px solid var(--gold);
+  border-radius:12px;
+}
+
+.calendar-button,.map-button,.copy-address-button,.gift-item button,#rsvpForm button {
+  display:inline-block;
+  border:1px solid #b18a50;
+  background:var(--wine);
+  color:#fff3e7;
+  text-decoration:none;
+  border-radius:28px;
+  padding:11px 18px;
+  margin:11px 4px 0;
+  font-weight:500;
+  font-size:12px;
+  cursor:pointer;
+  max-width:100%;
+}
+
+.love-story-section {
+  background:#4b1020;
+}
+
+.moment-heading,.gift-heading {
+  font:54px 'Great Vibes',cursive;
+  color:#e3b77d;
+  font-weight:400;
+  margin:0 0 10px;
+}
+
+.story-quote {
+  font:italic 15px/1.6 'Playfair Display',serif;
+  color:#f2cfab;
+}
+
+.story-grid {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:10px;
+  margin:26px 0;
+}
+
+.story-img {
+  height:205px;
+  overflow:hidden;
+  border-radius:105px 105px 12px 12px/78px 78px 12px 12px;
+  border:2px solid #d0a56e;
+  background:#a46e75;
+}
+
+.story-img img {
+  height:100%;
+  width:100%;
+  object-fit:cover;
+}
+
+.story-text-card {
+  background:#f8e9df;
+  border-radius:16px;
+  padding:25px;
+  color:var(--ink);
+}
+
+.heading-story {
+  font:26px 'Playfair Display',serif;
+  color:var(--wine);
+}
+
+.story-text-card .story-quote {
+  color:#6d3a43;
+}
+
+.rsvp-section .section-card {
+  border-radius:24px;
+}
+
+.rsvp-heading {
+  font:45px 'Great Vibes',cursive;
+}
+
+.rsvp-section #rsvpForm {
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.rsvp-section input,.rsvp-section textarea {
+  width:100%;
+  border:1px solid #d2b69d;
+  border-radius:10px;
+  background:#fffdfb;
+  color:#43131c;
+  padding:13px;
+  font-size:13px;
+}
+
+.rsvp-section textarea {
+  min-height:108px;
+  resize:vertical;
+}
+
+.wishes-list {
+  margin-top:18px;
+  display:grid;
+  gap:10px;
+  text-align:left;
+}
+
+.wish {
+  background:#fffaf4;
+  border-left:3px solid var(--gold);
+  padding:12px;
+  border-radius:6px;
+  color:var(--wine);
+  font-size:13px;
+}
+
+.wish p {
+  margin:5px 0 0;
+  overflow-wrap:anywhere;
+}
+
+.gift-section {
+  background:#4b1020;
+}
+
+.gift-item {
+  background: linear-gradient(160deg, #6c2335, #380a16);
+  color: #ffffff;
+  border-radius: 18px;
+  border: 1px solid var(--gold);
+  padding: 25px 15px;
+}
+
+.gift-item button {
+  color: #ffffff;
+  background: #5b1623;
+  border: 1px solid var(--gold);
+}
+
+.bank-logo {
+  max-width:115px;
+  max-height:45px;
+  object-fit:contain;
+}
+
+.account-number {
+  font: 600 23px 'Playfair Display', serif;
+  letter-spacing: 1px;
+  margin: 12px 0 4px;
+  color: #ffffff;
+}
+
+.bank-name {
+  margin: 0;
+  font-size: 14px;
+  color: #ffffff;
+}
+
+.closing-wrapper {
+  background:#3a0a15;
+}
+
+.closing-card {
+  border:1px solid var(--gold);
+  border-radius:20px;
+  padding:36px 24px;
+  background:#591927dc;
+}
+
+.closing-card p {
+  font:13px/1.9 Poppins,sans-serif;
+}
+
+.site-footer {
+  text-align:center;
+  background:#25070d;
+  padding:15px;
+  color:#edc7b8;
+  font-size:11px;
+}
+
+.site-footer .love {
+  color:#e4a87c;
+}
+
+#soundToggle {
+  position:fixed;
+  bottom:19px;
+  right:max(16px,calc((100vw - 480px)/2 + 16px));
+  z-index:100;
+  border-radius:50%;
+  width:43px;
+  height:43px;
+  display:grid;
+  place-items:center;
+  background:var(--wine);
+  color:#fff0df;
+  border:1px solid var(--gold);
+  box-shadow:0 4px 15px #1d07127a;
+  cursor:pointer;
+}
+
+#preloader {
+  position:fixed;
+  inset:0;
+  z-index:1000;
+  background:#2d0710;
+  display:grid;
+  place-items:center;
+  transition:opacity .6s,visibility .6s;
+}
+
+#preloader.fade-out {
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+}
+
+.preloader-content {
+  text-align:center;
+}
+
+.preloader-initials {
+  font:68px 'Great Vibes',cursive;
+  color:var(--gold);
+}
+
+.preloader-line {
+  width:80px;
+  height:1px;
+  background:var(--gold);
+  margin:auto;
+}
+
+.anim-pop {
+  opacity:0;
+  transform:translateY(24px);
+  transition:opacity .85s ease,transform .85s ease;
+}
+
+.anim-pop.show {
+  opacity:1;
+  transform:translateY(0);
+}
+
+@media(max-width:360px) {
+  .main-invitation,.events-section,.love-story-section,.rsvp-section,.gift-section,.closing-wrapper {
+    padding-left:15px;
+    padding-right:15px;
+  }
+
+  .photo-wrapper {
+    height:230px;
+  }
+
+}
+
+@media(prefers-reduced-motion:reduce) {
+  *,*:before,*:after {
+    scroll-behavior:auto!important;
+    animation:none!important;
+    transition:none!important;
+  }
+
+  .anim-pop {
+    opacity:1;
+    transform:none;
+  }
+
+}
+
+/* =============================================
+   PENYEMPURNAAN VISUAL & AKSESIBILITAS
+   Diletakkan terakhir agar menimpa aturan lama.
+   ============================================= */
+
+/* Jaga teks panjang tidak melewati kartu. */
+.profile-card,
+.section-card,
+.closing-card {
+  overflow-wrap: anywhere;
+}
+
+/* Fokus keyboard tetap terlihat. */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid #edc78e;
+  outline-offset: 3px;
+}
+
+/* Jarak tulisan lebih lega pada layar kecil. */
+@media (max-width: 390px) {
+  .opening-content {
+    min-width: 0;
+    width: calc(100% - 40px);
+  }
+
+  .opening-content h1 {
+    font-size: clamp(39px, 11vw, 54px);
+  }
+
+  .profile-card {
+    padding-inline: 16px;
+  }
+
+  .countdown {
+    gap: 5px;
+  }
+}
+
+/* Perbaikan kartu saat layar HP lebih lebar. */
+@media (min-width: 481px) {
+  .container {
+    min-height: 100vh;
+  }
+}
+/* RESPONSIVE HP */
+@media (max-width: 360px) {
+  .photo-wrapper {
+    width: 94%;
+    height: 320px;
+  }
+}
